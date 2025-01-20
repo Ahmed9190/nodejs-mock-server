@@ -1,27 +1,49 @@
 import { faker } from "@faker-js/faker";
 
 export const generateInvoice = () => {
-  return {
-    number: `INV-${faker.number.int(1000, 9999)}`,
-    createdAt: faker.date.recent(),
-    payType: faker.number.int(0, 3),
-    customerName: faker.person.fullName(),
-    vatNumber: faker.number.int(),
-    address: faker.address.streetAddress(),
-    creatorName: "John Doe",
-    currencyId: faker.number.int(1, 2),
-    products: Array.from({ length: 3 }, (_, i) => ({
-      number: `INV-${faker.number.int(1000, 9999)}`,
+  const products = Array.from({ length: 3 }, () => {
+    const unitPrice = +faker.commerce.price(20, 100, 2);
+    const unitDiscount = +faker.commerce.price(0, unitPrice / 2, 2); // Discount ≤ 50% of price
+    return {
+      number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
       name: faker.commerce.productName(),
-      unitPrice: +faker.commerce.price(20),
-      unitDiscount: +faker.commerce.price(0, 5),
-      quantity: faker.number.int(10, 100),
-      freeQuantity: faker.number.int(0, 5),
-    })),
+      unitPrice,
+      unitDiscount,
+      quantity: faker.number.int({ min: 1, max: 100 }),
+      freeQuantity: faker.number.int({ min: 0, max: 5 }),
+    };
+  });
+
+  // Calculate total price of products
+  const total = products.reduce(
+    (sum, product) =>
+      sum + product.quantity * (product.unitPrice - product.unitDiscount),
+    0
+  );
+
+  const vat = +(total * 0.15).toFixed(2); // VAT is 15% of total
+  const totalAfterVat = +(total + vat).toFixed(2);
+
+  return {
+    number: `INV-${faker.number.int({ min: 1000, max: 9999 })}`,
+    createdAt: faker.date.recent(),
+    payType: faker.number.int({ min: 0, max: 3 }),
+    customerName: faker.person.fullName(),
+    vatNumber:
+      Math.random() >= 0.5
+        ? Array.from({ length: 13 })
+            .map(() => faker.number.int({ min: 0, max: 9 }))
+            .join("")
+        : null,
+    address: Math.random() >= 0.5 ? faker.location.streetAddress() : null,
+    creatorName: "John Doe",
+    currencyId:
+      Math.random() >= 0.5 ? faker.number.int({ min: 1, max: 2 }) : null,
+    products,
     invoiceSummary: {
-      total: +faker.commerce.price(),
-      vat: +faker.commerce.price(0, 100),
-      totalAfterVat: +faker.commerce.price(100, 1000),
+      total: +total.toFixed(2),
+      vat,
+      totalAfterVat,
     },
   };
 };
