@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { faker } from "@faker-js/faker";
 import { generatePageResponse } from "../utils.js";
+import { DEFAULT_PAGE_SIZE } from "../constants.js";
 
 const router = Router();
 
@@ -17,7 +18,7 @@ const generateTransferRequestShortened = () => {
 
 // Endpoint to fetch a paginated list of transfer requests
 router.get("/", (req, res) => {
-  const { Page = 1, PerPage = 10 } = req.query;
+  const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
 
   const start = (Page - 1) * PerPage;
   const end = start + parseInt(PerPage);

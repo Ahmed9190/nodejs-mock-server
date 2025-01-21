@@ -9,6 +9,7 @@ import receiptToPrintRoutes from "./routes/receiptToPrintRoutes.js";
 import salesReturnToPrintRoutes from "./routes/salesReturnToPrintRoutes.js";
 import transferRequestShortenedRoutes from "./routes/transferRequestShortenedRoutes.js";
 import transferRequestRoutes from "./routes/transferRequestRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/InvoiceShortened", shortenedInvoiceRoutes);
 app.use("/ReceiptShortened", shortenedReceiptRoutes);
 app.use("/SalesReturnShortened", shortenedSalesReturnRoutes);
 app.use("/TransferRequestShortened", transferRequestShortenedRoutes);
+app.use("/Product", productRoutes);
 
 app.use("/InvoiceToPrint", invoiceToPrintRoutes);
 app.use("/ReceiptToPrint", receiptToPrintRoutes);
