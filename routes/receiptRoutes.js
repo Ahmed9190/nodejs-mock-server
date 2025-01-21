@@ -1,6 +1,8 @@
 import { Router } from "express";
+import { shortenedReceipts } from "../data/shortenedReceipts.js";
+import { generatePageResponse, generateResponse } from "../utils.js";
+import { DEFAULT_PAGE_SIZE } from "../constants.js";
 import { faker } from "@faker-js/faker";
-import { generateResponse } from "../utils.js";
 
 const router = Router();
 
@@ -16,6 +18,22 @@ const generateReceiptToPrint = (id) => {
   };
 };
 
+router.get("/Shortened", (req, res) => {
+  const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
+  const start = (Page - 1) * PerPage;
+  const end = start + parseInt(PerPage);
+
+  const data = shortenedReceipts.slice(start, end);
+  const page = generatePageResponse(
+    data,
+    Page,
+    PerPage,
+    shortenedReceipts.length
+  );
+
+  res.json(page);
+});
+
 // Endpoint for retrieving a specific receipt
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -28,6 +46,15 @@ router.get("/:id", (req, res) => {
   }
 
   const receiptToPrint = generateReceiptToPrint(id);
+  const response = generateResponse(receiptToPrint);
+
+  res.json(response);
+});
+
+router.post("/", (req, res) => {
+  const receiptToPrint = generateReceiptToPrint(
+    faker.number.int({ min: 1000, max: 9999 })
+  );
   const response = generateResponse(receiptToPrint);
 
   res.json(response);

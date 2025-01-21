@@ -6,6 +6,7 @@ import { DEFAULT_PAGE_SIZE } from "../constants.js";
 const router = Router();
 
 // Function to generate a single product
+
 const generateProduct = () => {
   const unitPrice = +faker.commerce.price(10, 100, 2);
   const unitDiscount = +faker.commerce.price(0, unitPrice / 2, 2); // Discount ≤ 50% of price
@@ -25,9 +26,9 @@ const generateProduct = () => {
   return {
     number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
     name: faker.commerce.productName(),
-    availableQuantity,
     unitPrice,
     unitDiscount,
+    availableQuantity,
     minimumQuantityToGetFreePack,
     freeQuantityPerPack,
     cost,

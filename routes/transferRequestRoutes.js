@@ -1,41 +1,51 @@
 import { Router } from "express";
+import { generatePageResponse, generateResponse } from "../utils.js";
+import { DEFAULT_PAGE_SIZE } from "../constants.js";
 import { faker } from "@faker-js/faker";
-import { generateResponse } from "../utils.js";
 
 const router = Router();
 
-// Function to generate a single transfer request
-const generateTransferRequest = (id) => {
-  const statuses = ["pending", "accepted", "rejected"];
-  const items = Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    () => {
-      const unitPrice = +faker.commerce.price(5, 100, 2);
-      const quantity = faker.number.int({ min: 1, max: 50 });
-      return {
-        id: faker.number.int({ min: 1000, max: 9999 }).toString(),
-        code: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
-        name: faker.commerce.productName(),
-        unitPrice,
-        quantity,
-        total: +(unitPrice * quantity).toFixed(2),
-      };
-    }
-  );
+const generateTransferRequestShortened = (id) => ({
+  number: `TR-${id}`,
+  createdAt: faker.date.recent(),
+  isFromMainWarehouse: faker.datatype.boolean(),
+  totalPrice: +faker.finance.amount(100, 1000, 2),
+  status: ["pending", "accepted", "rejected"][
+    faker.number.int({ min: 0, max: 2 })
+  ],
+});
+const generateTransferRequest = (id) => ({
+  id: `TR-${id}`,
+  createdAt: faker.date.recent(),
+  isFromMainWarehouse: faker.datatype.boolean(),
+  items: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, () => ({
+    id: faker.number.int({ min: 1000, max: 9999 }).toString(),
+    code: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
+    name: faker.commerce.productName(),
+    quantity: faker.number.int({ min: 1, max: 10 }),
+  })),
+  status: ["pending", "accepted", "rejected"][
+    faker.number.int({ min: 0, max: 2 })
+  ],
+  totalPrice: +faker.finance.amount(100, 1000, 2),
+});
 
-  const totalPrice = items.reduce((sum, item) => sum + item.total, 0);
+// Paginated transfer requests
+router.get("/Shortened", (req, res) => {
+  const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
 
-  return {
-    id: `TR-${id}`,
-    createdAt: faker.date.recent(),
-    isFromMainWarehouse: faker.datatype.boolean(),
-    items,
-    status: statuses[faker.number.int({ min: 0, max: statuses.length - 1 })],
-    totalPrice: +totalPrice.toFixed(2),
-  };
-};
+  const start = (Page - 1) * PerPage;
+  const end = start + parseInt(PerPage);
 
-// Endpoint for retrieving a specific transfer request by ID
+  const data = Array.from({ length: 50 }, (_, i) =>
+    generateTransferRequestShortened(i + 1)
+  ).slice(start, end);
+  const page = generatePageResponse(data, Page, PerPage, 50);
+
+  res.json(page);
+});
+
+// Retrieve specific transfer request
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -47,6 +57,16 @@ router.get("/:id", (req, res) => {
   }
 
   const transferRequest = generateTransferRequest(id);
+  const response = generateResponse(transferRequest);
+
+  res.json(response);
+});
+
+// Create a new transfer request
+router.post("/", (req, res) => {
+  const transferRequest = generateTransferRequest(
+    faker.number.int({ min: 1000, max: 9999 })
+  );
   const response = generateResponse(transferRequest);
 
   res.json(response);
