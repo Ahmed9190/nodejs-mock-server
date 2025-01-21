@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 export const generateInvoice = () => {
   const products = Array.from({ length: 3 }, () => {
     const unitPrice = +faker.commerce.price(20, 100, 2);
-    const unitDiscount = +faker.commerce.price(0, unitPrice / 2, 2); // Discount ≤ 50% of price
+    const unitDiscount = Math.random();
     return {
       number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
       name: faker.commerce.productName(),
