@@ -7,6 +7,7 @@ import salesReturnRoutes from "./routes/salesReturnRoutes.js";
 import transferRequestRoutes from "./routes/transferRequestRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
+import warehouseRoutes from "./routes/warehouseRoutes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/SalesReturn", salesReturnRoutes);
 app.use("/TransferRequest", transferRequestRoutes);
 
 app.use("/Product", productRoutes);
+app.use("/Warehouse", warehouseRoutes);
 app.use("/Customer", customerRoutes);
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
