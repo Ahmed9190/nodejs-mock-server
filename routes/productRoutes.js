@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { faker } from "@faker-js/faker";
-import { generatePageResponse } from "../utils.js";
+import { generatePageResponse, generateResponse } from "../utils.js";
 import { DEFAULT_PAGE_SIZE } from "../constants.js";
 
 const router = Router();
@@ -39,13 +39,23 @@ const generateProduct = () => {
 router.get("/", (req, res) => {
   const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
 
+  const data = Array.from({ length: 50 }, generateProduct);
+
   const start = (Page - 1) * PerPage;
   const end = start + parseInt(PerPage);
 
-  const data = Array.from({ length: 50 }, generateProduct).slice(start, end); // Total of 50 mock products
-  const page = generatePageResponse(data, Page, PerPage, 50);
+  const slicedData = data.slice(start, end);
+
+  const page = generatePageResponse(slicedData, Page, PerPage, 50);
 
   res.json(page);
+});
+
+// Endpoint for retrieving all products
+router.get("/All", (req, res) => {
+  const data = Array.from({ length: 50 }, generateProduct);
+
+  res.json(generateResponse(data));
 });
 
 export default router;

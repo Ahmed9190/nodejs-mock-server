@@ -18,7 +18,7 @@ const generateCustomer = (id) => ({
 });
 
 // Endpoint for retrieving paginated customers
-router.get("/", (req, res) => {
+router.get("/All", (req, res) => {
   const data = Array.from({ length: 50 }, (_, i) => generateCustomer(i + 1));
 
   const page = generateResponse(data);
