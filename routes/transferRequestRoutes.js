@@ -64,11 +64,13 @@ router.get("/:id", (req, res) => {
 
 // Create a new transfer request
 router.post("/", (req, res) => {
+  console.dir(req.body, { depth: null });
+
   const transferRequest = generateTransferRequest(
     faker.number.int({ min: 1000, max: 9999 })
   );
   const response = generateResponse(transferRequest);
-
+  console.log(response)
   res.json(response);
 });
 
