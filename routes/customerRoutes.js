@@ -11,10 +11,10 @@ const generateCustomer = (id) => ({
   vatNumber:
     Math.random() >= 0.5
       ? Array.from({ length: 13 }) // Optional VAT number (13-digit)
-          .map(() => faker.number.int({ min: 0, max: 9 }))
-          .join("")
+        .map(() => faker.number.int({ min: 0, max: 9 }))
+        .join("")
       : null,
-  address: Math.random() >= 0.5 ? faker.address.streetAddress() : null,
+  address: Math.random() >= 0.5 ? faker.location.streetAddress() : null,
   phoneNumber: Math.random() >= 0.5 ? faker.phone.number() : null,
 });
 

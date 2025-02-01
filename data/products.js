@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 
 const generateProduct = () => {
   const unitPrice = +faker.commerce.price(10, 100, 2);
-  const unitDiscount = +faker.commerce.price(0, unitPrice / 2, 2); // Discount ≤ 50% of price
+  const unitDiscount = +faker.commerce.price({ min: 0, max: unitPrice / 2, dec: 2 }); // Discount ≤ 50% of price
   const availableQuantity = faker.number.int({
     min: 10,
     max: 100,
