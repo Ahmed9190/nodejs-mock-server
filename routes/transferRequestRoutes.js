@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { generatePageResponse, generateResponse } from "../utils.js";
 import { DEFAULT_PAGE_SIZE } from "../constants.js";
+
 import { faker } from "@faker-js/faker";
+import { products } from "../data/products.js";
 
 const router = Router();
 
@@ -18,10 +20,8 @@ const generateTransferRequest = (id) => ({
   id: `TR-${id}`,
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
-  items: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, () => ({
-    id: faker.number.int({ min: 1000, max: 9999 }).toString(),
-    code: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
-    name: faker.commerce.productName(),
+  items: products.splice(faker.number.int({ min: 0, max: 5 }), faker.number.int({ min: 1, max: 10 })).map((product) => ({
+    item: product,
     quantity: faker.number.int({ min: 1, max: 10 }),
   })),
   status: ["pending", "accepted", "rejected"][
@@ -64,11 +64,13 @@ router.get("/:id", (req, res) => {
 
 // Create a new transfer request
 router.post("/", (req, res) => {
+  console.dir(req.body, { depth: null });
+
   const transferRequest = generateTransferRequest(
     faker.number.int({ min: 1000, max: 9999 })
   );
   const response = generateResponse(transferRequest);
-
+  console.log(response)
   res.json(response);
 });
 

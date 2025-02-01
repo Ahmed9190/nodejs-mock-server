@@ -2,6 +2,7 @@ import { Router } from "express";
 import { generatePageResponse, generateResponse } from "../utils.js";
 import { DEFAULT_PAGE_SIZE } from "../constants.js";
 import { faker } from "@faker-js/faker";
+import { generateProductToPrint } from "../data/invoice.js";
 
 const router = Router();
 
@@ -23,19 +24,12 @@ const generateSalesReturnToPrintModel = (id) => ({
   vatNumber:
     Math.random() >= 0.5
       ? Array.from({ length: 13 }) // Optional VAT number (13-digit)
-          .map(() => faker.number.int({ min: 0, max: 9 }))
-          .join("")
+        .map(() => faker.number.int({ min: 0, max: 9 }))
+        .join("")
       : null,
   address: faker.location.streetAddress(),
   creatorName: faker.person.fullName(),
-  products: Array.from({ length: 5 }, () => ({
-    number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
-    name: faker.commerce.productName(),
-    unitPrice: +faker.finance.amount(10, 100, 2),
-    unitDiscount: +faker.finance.amount(0, 50, 2),
-    quantity: faker.number.int({ min: 1, max: 10 }),
-    freeQuantity: faker.number.int({ min: 0, max: 5 }),
-  })),
+  products: Array.from({ length: 5 }, generateProductToPrint),
   invoiceSummary: {
     total: +faker.finance.amount(100, 500, 2),
     vat: +faker.finance.amount(10, 50, 2),
