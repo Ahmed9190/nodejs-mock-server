@@ -7,6 +7,8 @@ export const generateProductToPrint = () => {
     Math.random() >= 0.5 ? 0 : faker.number.int({ min: 10, max: 15 });
   const freeQuantityPerPack =
     minimumQuantityToGetFreePack > 0 ? faker.number.int({ min: 1, max: 2 }) : 0;
+  const quantity = faker.number.int({ min: 1, max: 1000 });
+  const freeQuantity = minimumQuantityToGetFreePack > 0 ? Math.floor(quantity / minimumQuantityToGetFreePack) * freeQuantityPerPack : 0;
 
   return {
     number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
@@ -14,8 +16,8 @@ export const generateProductToPrint = () => {
     name: faker.commerce.productName(),
     unitPrice,
     unitDiscount,
-    quantity: faker.number.int({ min: 1, max: 10 }),
-    freeQuantity: faker.number.int({ min: 0, max: 5 }),
+    quantity: quantity,
+    freeQuantity: freeQuantity,
     minimumQuantityToGetFreePack,
     freeQuantityPerPack,
   };

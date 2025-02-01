@@ -71,6 +71,7 @@ router.get("/:id", (req, res) => {
 
 // Create a new sales return
 router.post("/", (req, res) => {
+  console.log(req.body);
   const salesReturn = generateSalesReturn(
     faker.number.int({ min: 1000, max: 9999 })
   );
