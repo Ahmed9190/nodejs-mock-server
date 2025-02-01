@@ -52,8 +52,6 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log(req.body);
-
   const receiptToPrint = generateReceiptToPrint(
     faker.number.int({ min: 1000, max: 9999 })
   );
