@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post("/TokenAuth/Authenticate", (req, res) => {
+router.post("/Authenticate", (req, res) => {
   return res.json({
     "result": {
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ijk3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkJlbGFsIiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiJYN1RQVlRWSzJRSU9GN0NSQ0FFTFpEWVZTREhDUUE1TiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiaHR0cDovL3d3dy5hc3BuZXRib2lsZXJwbGF0ZS5jb20vaWRlbnRpdHkvY2xhaW1zL3RlbmFudElkIjoiMSIsInN1YiI6Ijk3IiwianRpIjoiMmQyOTVlZjAtN2Y1Ny00N2VkLWIxYWQtNzU1NmU3NjUxYjMzIiwiaWF0IjoxNzM3OTk4OTQ4LCJuYmYiOjE3Mzc5OTg5NDgsImV4cCI6MTczODA4NTM0OCwiaXNzIjoiRXJwIiwiYXVkIjoiRXJwIn0.ijhr_Hg7r-06pavWNoSu5xFkcZaFPmvr6N7A9DhU3RA",
