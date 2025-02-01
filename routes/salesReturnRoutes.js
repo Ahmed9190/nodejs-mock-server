@@ -75,7 +75,6 @@ router.post("/", (req, res) => {
     faker.number.int({ min: 1000, max: 9999 })
   );
   const response = generateResponse(salesReturn);
-  console.log(response);
 
   res.json(response);
 });

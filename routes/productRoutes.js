@@ -20,6 +20,8 @@ router.get("/", (req, res) => {
 
 // Endpoint for retrieving all products
 router.get("/All", (req, res) => {
+  console.log(req.query);
+
   res.json(generateResponse(products));
 });
 

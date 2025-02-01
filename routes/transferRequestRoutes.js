@@ -21,10 +21,12 @@ const generateTransferRequest = (id) => ({
   id: `TR-${id}`,
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
-  items: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }).map(() => ({
-    item: generateProductToPrint(),
-    quantity: faker.number.int({ min: 1, max: 10 }),
-  })),
+  items: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }).map(
+    () => ({
+      item: generateProductToPrint(),
+      quantity: faker.number.int({ min: 1, max: 10 }),
+    })
+  ),
   status: ["pending", "accepted", "rejected"][
     faker.number.int({ min: 0, max: 2 })
   ],
