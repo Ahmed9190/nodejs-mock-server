@@ -2,17 +2,17 @@ import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
 
-import invoiceRoutes from "./routes/invoiceRoutes.js";
-import receiptRoutes from "./routes/receiptRoutes.js";
-import salesReturnRoutes from "./routes/salesReturnRoutes.js";
-import transferRequestRoutes from "./routes/transferRequestRoutes.js";
-import productRoutes from "./routes/productRoutes.js";
-import customerRoutes from "./routes/customerRoutes.js";
-import warehouseRoutes from "./routes/warehouseRoutes.js";
-import authenticateRoutes from "./routes/authenticateRoutes.js";
-import taxRoutes from "./routes/taxRoutes.js";
-import { generateResponse } from "./utils.js";
-import { currencies } from "./data/currencies.js";
+import invoiceRoutes from "../routes/invoiceRoutes.js";
+import receiptRoutes from "../routes/receiptRoutes.js";
+import salesReturnRoutes from "../routes/salesReturnRoutes.js";
+import transferRequestRoutes from "../routes/transferRequestRoutes.js";
+import productRoutes from "../routes/productRoutes.js";
+import customerRoutes from "../routes/customerRoutes.js";
+import warehouseRoutes from "../routes/warehouseRoutes.js";
+import authenticateRoutes from "../routes/authenticateRoutes.js";
+import taxRoutes from "../routes/taxRoutes.js";
+import { generateResponse } from "../utils.js";
+import { currencies } from "../data/currencies.js";
 
 const app = express();
 
