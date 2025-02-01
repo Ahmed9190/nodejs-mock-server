@@ -24,3 +24,14 @@ export function generatePageResponse(data, page, perPage, count) {
     __abp: true,
   };
 }
+
+export function generateErrorResponse(error) {
+  return {
+    result: null,
+    targetUrl: null,
+    success: false,
+    error: error,
+    unAuthorizedRequest: false,
+    __abp: true,
+  };
+}
