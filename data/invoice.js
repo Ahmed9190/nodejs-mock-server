@@ -1,18 +1,22 @@
 import { faker } from "@faker-js/faker";
 
+export const generateProductToPrint = () => {
+  const unitPrice = +faker.commerce.price(20, 100, 2);
+  const unitDiscount = Math.random();
+  return {
+    number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
+    name: faker.commerce.productName(),
+    unitPrice,
+    unitDiscount,
+    quantity: faker.number.int({ min: 1, max: 100 }),
+    freeQuantity: faker.number.int({ min: 0, max: 5 }),
+    minimumQuantityToGetFreePack: faker.number.int({ min: 1, max: 10 }),
+    freeQuantityPerPack: faker.number.int({ min: 0, max: 5 }),
+  };
+};
+
 export const generateInvoice = () => {
-  const products = Array.from({ length: 3 }, () => {
-    const unitPrice = +faker.commerce.price(20, 100, 2);
-    const unitDiscount = Math.random();
-    return {
-      number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
-      name: faker.commerce.productName(),
-      unitPrice,
-      unitDiscount,
-      quantity: faker.number.int({ min: 1, max: 100 }),
-      freeQuantity: faker.number.int({ min: 0, max: 5 }),
-    };
-  });
+  const products = Array.from({ length: 3 }, generateProductToPrint);
 
   // Calculate total price of products
   const total = products.reduce(
