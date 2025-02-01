@@ -8,7 +8,7 @@ const router = Router();
 // Endpoint for retrieving paginated products
 router.get("/", (req, res) => {
   const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
-
+  console.log(req.query)
 
   const start = (Page - 1) * PerPage;
   const end = start + parseInt(PerPage);
@@ -22,7 +22,6 @@ router.get("/", (req, res) => {
 
 // Endpoint for retrieving all products
 router.get("/All", (req, res) => {
-
   res.json(generateResponse(products));
 });
 
