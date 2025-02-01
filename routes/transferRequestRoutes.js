@@ -3,7 +3,7 @@ import { generatePageResponse, generateResponse } from "../utils.js";
 import { DEFAULT_PAGE_SIZE } from "../constants.js";
 
 import { faker } from "@faker-js/faker";
-import { products } from "../data/products.js";
+import { generateProductToPrint } from "../data/invoice.js";
 
 const router = Router();
 
@@ -16,12 +16,13 @@ const generateTransferRequestShortened = (id) => ({
     faker.number.int({ min: 0, max: 2 })
   ],
 });
+
 const generateTransferRequest = (id) => ({
   id: `TR-${id}`,
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
-  items: products.splice(faker.number.int({ min: 0, max: 5 }), faker.number.int({ min: 1, max: 10 })).map((product) => ({
-    item: product,
+  items: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }).map(() => ({
+    item: generateProductToPrint(),
     quantity: faker.number.int({ min: 1, max: 10 }),
   })),
   status: ["pending", "accepted", "rejected"][
@@ -64,13 +65,10 @@ router.get("/:id", (req, res) => {
 
 // Create a new transfer request
 router.post("/", (req, res) => {
-  console.dir(req.body, { depth: null });
-
   const transferRequest = generateTransferRequest(
     faker.number.int({ min: 1000, max: 9999 })
   );
   const response = generateResponse(transferRequest);
-  console.log(response)
   res.json(response);
 });
 
