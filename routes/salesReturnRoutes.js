@@ -24,8 +24,8 @@ const generateSalesReturnToPrintModel = (id) => ({
   vatNumber:
     Math.random() >= 0.5
       ? Array.from({ length: 13 }) // Optional VAT number (13-digit)
-        .map(() => faker.number.int({ min: 0, max: 9 }))
-        .join("")
+          .map(() => faker.number.int({ min: 0, max: 9 }))
+          .join("")
       : null,
   address: faker.location.streetAddress(),
   creatorName: faker.person.fullName(),
@@ -71,11 +71,11 @@ router.get("/:id", (req, res) => {
 
 // Create a new sales return
 router.post("/", (req, res) => {
-  console.log(req.body);
-  const salesReturn = generateSalesReturn(
+  const salesReturn = generateSalesReturnToPrintModel(
     faker.number.int({ min: 1000, max: 9999 })
   );
   const response = generateResponse(salesReturn);
+  console.log(response);
 
   res.json(response);
 });
