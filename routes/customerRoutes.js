@@ -7,7 +7,6 @@ const router = Router();
 // Function to generate a single customer
 const generateCustomer = (id) => ({
   id,
-  accountNumber: faker.number.int({ min: 100000, max: 999999 }), // 6-digit account number
   name: faker.person.fullName(),
   vatNumber:
     Math.random() >= 0.5
@@ -15,6 +14,8 @@ const generateCustomer = (id) => ({
           .map(() => faker.number.int({ min: 0, max: 9 }))
           .join("")
       : null,
+  address: Math.random() >= 0.5 ? faker.address.streetAddress() : null,
+  phoneNumber: Math.random() >= 0.5 ? faker.phone.number() : null,
 });
 
 // Endpoint for retrieving paginated customers
