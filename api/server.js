@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import serverless from "serverless-http";
 
 import invoiceRoutes from "../routes/invoiceRoutes.js";
 import receiptRoutes from "../routes/receiptRoutes.js";
@@ -29,12 +28,9 @@ app.use("/Product", productRoutes);
 app.use("/Warehouse", warehouseRoutes);
 app.use("/Customer", customerRoutes);
 
-app.use("/TokenAuth/Authenticate", customerRoutes);
-
 app.get("/Currency", (req, res) => res.json(generateResponse(currencies)));
 
-app.use("/TokenAuth/Authenticate", authenticateRoutes);
+app.use("/TokenAuth", authenticateRoutes);
 
 app.use("/services/app/Tax/GetTaxByCompanyTask", taxRoutes);
-export default app;
-export const handler = serverless(app);
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
