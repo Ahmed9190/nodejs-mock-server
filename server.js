@@ -32,6 +32,7 @@ app.use("/Warehouse", warehouseRoutes);
 app.use("/Customer", customerRoutes);
 app.get("/Currency", (req, res) => res.json(generateResponse(currencies)))
 
+
 app.use("/TokenAuth", authenticateRoutes)
 
 app.use("/GetCompanyId", componyRoutes);
