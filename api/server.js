@@ -9,6 +9,9 @@ import productRoutes from "../routes/productRoutes.js";
 import customerRoutes from "../routes/customerRoutes.js";
 import warehouseRoutes from "../routes/warehouseRoutes.js";
 import authenticateRoutes from "../routes/authenticateRoutes.js";
+import componyRoutes from "../routes/componyRoutes.js";
+import branchIdRoutes from "../routes/branchIdRoutes.js";
+import userInfoRoutes from "../routes/userInfoRoutes.js";
 import taxRoutes from "../routes/taxRoutes.js";
 import { generateResponse } from "../utils.js";
 import { currencies } from "../data/currencies.js";
@@ -27,10 +30,14 @@ app.use("/TransferRequest", transferRequestRoutes);
 app.use("/Product", productRoutes);
 app.use("/Warehouse", warehouseRoutes);
 app.use("/Customer", customerRoutes);
+app.get("/Currency", (req, res) => res.json(generateResponse(currencies)))
 
-app.get("/Currency", (req, res) => res.json(generateResponse(currencies)));
+app.use("/TokenAuth", authenticateRoutes)
 
-app.use("/TokenAuth", authenticateRoutes);
+app.use("/GetCompanyId", componyRoutes);
+app.use("/GetBranchId", branchIdRoutes);
+app.use("/GetUserInfo", userInfoRoutes);
+app.use("/services/app/Tax/GetTaxByCompanyTask", taxRoutes)
 
-app.use("/services/app/Tax/GetTaxByCompanyTask", taxRoutes);
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+
