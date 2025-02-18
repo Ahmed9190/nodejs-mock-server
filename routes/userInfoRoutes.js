@@ -8,10 +8,10 @@ router.get("/", (req, res) => {
       "userDto": {
         "userName": "Belal",
         "name": "Belal",
-        "surname": "Belal",
+        "surname": "hBelal",
         "emailAddress": "Belal@gmail.com",
         "isActive": true,
-        "fullName": "Belal Belal",
+        "fullName": "Belal hBelal",
         "lastLoginTime": null,
         "roleNames": [
           "ADMIN"
