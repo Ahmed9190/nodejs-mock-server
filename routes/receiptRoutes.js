@@ -19,6 +19,22 @@ const generateReceiptToPrint = (id) => {
 };
 
 router.get("/Shortened", (req, res) => {
+  return res.json(
+    {
+      result: null,
+      targetUrl: null,
+      success: false,
+      error: {
+        code: 0,
+        message: "Sign in First!",
+        details: null,
+        validationErrors: null,
+      },
+      unAuthorizedRequest: false,
+      __abp: true,
+    },
+    500
+  );
   const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
   const start = (Page - 1) * PerPage;
   const end = start + parseInt(PerPage);
