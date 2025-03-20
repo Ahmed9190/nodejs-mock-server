@@ -18,6 +18,7 @@ const generateProduct = () => {
   const minimumQuantityToGetFreePack = faker.number.int({ min: 1, max: 10 });
 
   return {
+    id: faker.number.int({ min: 1, max: 999999999 }),
     number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
     name: faker.commerce.productName(),
     unitPrice,
