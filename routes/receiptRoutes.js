@@ -9,6 +9,7 @@ const router = Router();
 // Function to generate a receipt for printing
 const generateReceiptToPrint = (id) => {
   return {
+    id: faker.number.int({ min: 1, max: 999999999 }),
     number: `REC-${id}`,
     customerName: faker.person.fullName(),
     createdAt: faker.date.recent(),

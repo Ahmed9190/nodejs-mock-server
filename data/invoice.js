@@ -27,7 +27,7 @@ export const generateProductToPrint = () => {
   };
 };
 
-export const generateInvoice = () => {
+export const generateInvoice = ({ id, number } = {}) => {
   const products = Array.from({ length: 3 }, generateProductToPrint);
 
   // Calculate total price of products
@@ -41,7 +41,8 @@ export const generateInvoice = () => {
   const totalAfterVat = +(total + vat).toFixed(2);
 
   return {
-    number: `INV-${faker.number.int({ min: 1000, max: 9999 })}`,
+    id: id ?? faker.number.int({ min: 1, max: 999999999 }),
+    number: number ?? `INV-${faker.number.int({ min: 1000, max: 9999 })}`,
     createdAt: faker.date.recent(),
     payType: faker.number.int({ min: 0, max: 3 }),
     customerName: faker.person.fullName(),

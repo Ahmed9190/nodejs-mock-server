@@ -8,7 +8,9 @@ import { generatePageResponse } from "../utils.js";
 const router = Router();
 
 router.get("/Shortened", (req, res) => {
-  const { Page = 1, PerPage = DEFAULT_PAGE_SIZE } = req.query;
+  const Page = parseInt(req.query.Page || "1");
+  const PerPage = parseInt(req.query.PerPage || DEFAULT_PAGE_SIZE.toString());
+
   const start = (Page - 1) * PerPage;
   const end = start + parseInt(PerPage);
 
@@ -23,10 +25,20 @@ router.get("/Shortened", (req, res) => {
   res.json(page);
 });
 
-router.get("/:id", (req, res) => {
-  const { id } = req.query;
+router.get("/ByField", (req, res) => {
+  const number = parseInt(req.query.number);
 
-  const invoice = generateInvoice(id);
+  const invoice = generateInvoice({ number });
+
+  const page = generateResponse(invoice);
+
+  res.json(page);
+});
+
+router.get("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const invoice = generateInvoice({ id });
 
   const page = generateResponse(invoice);
 

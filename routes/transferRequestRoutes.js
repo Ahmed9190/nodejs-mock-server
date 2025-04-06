@@ -8,6 +8,7 @@ import { generateProductToPrint } from "../data/invoice.js";
 const router = Router();
 
 const generateTransferRequestShortened = (id) => ({
+  id: faker.number.int({ min: 1, max: 999999999 }),
   number: `TR-${id}`,
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
@@ -18,7 +19,8 @@ const generateTransferRequestShortened = (id) => ({
 });
 
 const generateTransferRequest = (id) => ({
-  id: `TR-${id}`,
+  id: +id,
+  number: `TR-${id}`,
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
   items: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }).map(

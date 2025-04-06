@@ -9,6 +9,7 @@ const router = Router();
 // Function to generate a single sales return
 
 const generateSalesReturn = (id) => ({
+  id: faker.number.int({ min: 1, max: 999999999 }),
   number: `RET-${id}`,
   createdAtSalesReturnInvoice: faker.date.recent(),
   invoiceNumber: `INV-${faker.number.int({ min: 1000, max: 9999 })}`,
@@ -18,6 +19,7 @@ const generateSalesReturn = (id) => ({
 });
 
 const generateSalesReturnToPrintModel = (id) => ({
+  id: faker.number.int({ min: 1, max: 999999999 }),
   number: `RET-${id}`,
   createdAt: faker.date.recent(),
   customerName: faker.person.fullName(),
