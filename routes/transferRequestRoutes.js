@@ -13,9 +13,7 @@ const generateTransferRequestShortened = (id) => ({
   createdAt: faker.date.recent(),
   isFromMainWarehouse: faker.datatype.boolean(),
   totalPrice: +faker.finance.amount(100, 1000, 2),
-  status: ["pending", "accepted", "rejected"][
-    faker.number.int({ min: 0, max: 2 })
-  ],
+  status: ["pending", "accepted"][faker.number.int({ min: 0, max: 2 })],
 });
 
 const generateTransferRequest = (id) => ({
@@ -29,9 +27,7 @@ const generateTransferRequest = (id) => ({
       quantity: faker.number.int({ min: 1, max: 10 }),
     })
   ),
-  status: ["pending", "accepted", "rejected"][
-    faker.number.int({ min: 0, max: 2 })
-  ],
+  status: ["pending", "accepted"][faker.number.int({ min: 0, max: 2 })],
   totalPrice: +faker.finance.amount(100, 1000, 2),
 });
 
