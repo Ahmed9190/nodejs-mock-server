@@ -8,8 +8,8 @@ const generateProduct = () => {
     dec: 2,
   }); // Discount ≤ 50% of price
   const availableQuantity = faker.number.int({
-    min: 10,
-    max: 100,
+    min: 0,
+    max: 10,
   });
   const freeQuantityPerPack = faker.number.int({
     min: 0,

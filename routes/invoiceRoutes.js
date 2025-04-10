@@ -26,7 +26,6 @@ router.get("/Shortened", (req, res) => {
 });
 
 router.get("/ByField", (req, res) => {
-  console.log(req.query.number);
   const { number } = req.query;
 
   const invoice = generateInvoice({ number });
