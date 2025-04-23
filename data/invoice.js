@@ -55,6 +55,7 @@ export const generateInvoice = ({ id, number } = {}) => {
     address: Math.random() >= 0.5 ? faker.location.streetAddress() : null,
     creatorName: "John Doe",
     currencyId: faker.number.int({ min: 1, max: 2 }),
+    notes: faker.lorem.words({ min: 0, max: 10 }),
     products,
     invoiceSummary: {
       total: +total.toFixed(2),

@@ -46,8 +46,24 @@ app.use("/Config", configRoutes);
 app.get("/services/app/Currency/GetCurrencyList", (req, res) => {
   res.json({
     result: {
-      // Place the currencies array directly under 'dropLists' as per the provided JSON
       dropLists: currencies,
+    },
+    targetUrl: null,
+    success: true,
+    error: null,
+    unAuthorizedRequest: false,
+    __abp: true,
+  });
+});
+app.get("/Company", (req, res) => {
+  res.json({
+    result: {
+      id: 5,
+      name: "مؤسسة ھدیل فیصل المنصوري للتجارة",
+      vatNumber: "312185268800003",
+      commercialNo: "1009015993",
+      address: "8852 , صارم الدين العواد , 4863",
+      logo: "https://almansoori.erp2030.com/files/company/W5BKOT2CD7.jpeg",
     },
     targetUrl: null,
     success: true,
