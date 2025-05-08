@@ -17,7 +17,11 @@ export const generateProductToPrint = () => {
   return {
     id: faker.number.int({ min: 1, max: 999999999 }),
     number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
-    name: faker.commerce.productName(),
+    name: `صنف ${faker.number.int({
+      min: 1,
+      max: 999,
+    })}`,
+
     englishName: faker.commerce.productName(),
     unitPrice,
     unitDiscount,
