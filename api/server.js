@@ -14,6 +14,7 @@ import branchIdRoutes from "../routes/branchIdRoutes.js";
 import userInfoRoutes from "../routes/userInfoRoutes.js";
 import taxRoutes from "../routes/taxRoutes.js";
 import configRoutes from "../routes/configRoutes.js";
+import userRoutes from "../routes/userRoutes.js";
 
 import { generateResponse } from "../utils.js";
 import { currencies } from "../data/currencies.js";
@@ -43,6 +44,8 @@ app.use("/services/app/Tax/GetTaxByCompanyTask", taxRoutes);
 
 app.use("/Config", configRoutes);
 
+app.use("/services/app/User", userRoutes);
+
 app.get("/services/app/Currency/GetCurrencyList", (req, res) => {
   res.json({
     result: {
@@ -59,7 +62,7 @@ app.get("/Company", (req, res) => {
   res.json({
     result: {
       id: 5,
-      name: "مؤسسة ھدیل فیصل المنصوري للتجارة",
+      name: "مؤسسة ھدیل فيصل المنصوري للتجارة",
       vatNumber: "312185268800003",
       commercialNo: "1009015993",
       address: "8852 , صارم الدين العواد , 4863",

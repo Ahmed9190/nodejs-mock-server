@@ -11,13 +11,14 @@ export const generateProductToPrint = () => {
   const freeQuantity =
     minimumQuantityToGetFreePack > 0
       ? Math.floor(quantity / minimumQuantityToGetFreePack) *
-        freeQuantityPerPack
+      freeQuantityPerPack
       : 0;
 
   return {
     id: faker.number.int({ min: 1, max: 999999999 }),
     number: `PROD-${faker.number.int({ min: 1000, max: 9999 })}`,
     name: faker.commerce.productName(),
+    englishName: faker.commerce.productName(),
     unitPrice,
     unitDiscount,
     quantity: quantity,
@@ -49,8 +50,8 @@ export const generateInvoice = ({ id, number } = {}) => {
     vatNumber:
       Math.random() >= 0.5
         ? Array.from({ length: 13 })
-            .map(() => faker.number.int({ min: 0, max: 9 }))
-            .join("")
+          .map(() => faker.number.int({ min: 0, max: 9 }))
+          .join("")
         : null,
     address: Math.random() >= 0.5 ? faker.location.streetAddress() : null,
     creatorName: "John Doe",
