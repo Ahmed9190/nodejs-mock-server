@@ -18,7 +18,7 @@ router.get("/GetAppVersion", (req, res) => {
   res.json({
     result: {
       data: {
-        lastVersion: "1.0.1",
+        lastVersion: "1.0.2",
       },
     },
     targetUrl: null,
